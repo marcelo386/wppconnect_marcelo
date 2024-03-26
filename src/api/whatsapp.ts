@@ -147,18 +147,30 @@ export class Whatsapp extends BusinessLayer {
 
     if (!this.page.isClosed()) {
       await this.page.close().catch(() => null);
+
+      await browser.close().catch(() => null);
+      /*
+      Code removed as it is not necessary.
+      try {
+        const process = browser.process();
+        if (process) {
+          treekill(process.pid, 'SIGKILL');
+        }
+      } catch (error) {}
+      */
     }
 
-    await browser.close().catch(() => null);
-
-    try {
-      const process = browser.process();
-      if (process) {
-        treekill(process.pid, 'SIGKILL');
-      }
-    } catch (error) {}
-
     return true;
+  }
+
+  /**
+   * Return PID process
+   * @internal
+   */
+  public getPID() {
+    const browser = this.page.browser();
+    const process = browser.process();
+    return process.pid;
   }
 
   /**

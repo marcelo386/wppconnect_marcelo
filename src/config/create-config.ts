@@ -25,7 +25,7 @@ export interface CreateConfig {
    * Headless chrome
    * @default true
    */
-  headless?: boolean;
+  headless?: boolean | 'shell';
   /**
    * Open devtools by default
    * @default false
@@ -168,6 +168,11 @@ export interface CreateConfig {
    * @default 'WPPConnect'
    */
   poweredBy?: string;
+
+  /**
+   * Insert the phone number for connect by link phone, qr code not wil generate
+   */
+  phoneNumber?: string;
 }
 
 export const defaultOptions: CreateConfig = {
@@ -188,7 +193,7 @@ export const defaultOptions: CreateConfig = {
   waitForLogin: true,
   logger: defaultLogger,
   tokenStore: 'file',
-  whatsappVersion: '2.2331.x',
+  whatsappVersion: '2.2404.x',
   deviceName: false,
   linkPreviewApiServers: null,
   disableGoogleAnalytics: true,

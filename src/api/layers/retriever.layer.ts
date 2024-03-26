@@ -21,6 +21,7 @@ import { SessionToken } from '../../token-store';
 import { evaluateAndReturn } from '../helpers';
 import {
   Chat,
+  Contact,
   ContactStatus,
   ProfilePicThumbObj,
   WhatsappProfile,
@@ -578,6 +579,40 @@ export class RetrieverLayer extends SenderLayer {
   public async getGroupSizeLimit(): Promise<number> {
     return await evaluateAndReturn(this.page, () =>
       WPP.group.getGroupSizeLimit()
+    );
+  }
+
+  /**
+   * Get info of your sended order
+   *
+   * @example
+   * ```javascript
+   * const orderInfo = await client.getOrder('<orderId>');
+   * ```
+   * @category Order
+   * @return Your order
+   */
+  public async getOrder(msgId: string) {
+    return evaluateAndReturn(this.page, (msgId) => WPP.order.get(msgId), msgId);
+  }
+
+  /**
+   * Get all commons groups for the contact
+   *
+   * @example
+   * ```javascript
+   * const groups_ids = await client.getCommonGroups('[number]@c.us');
+   * ```
+   *
+   * @category Group
+   * @param groupId Group ID ('000000-000000@g.us')
+   * @returns Promise
+   */
+  public async getCommonGroups(wid: string) {
+    return await evaluateAndReturn(
+      this.page,
+      ({ wid }) => WPP.contact.getCommonGroups(wid),
+      { wid }
     );
   }
 }

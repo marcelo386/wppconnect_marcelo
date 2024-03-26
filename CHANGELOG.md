@@ -1,3 +1,31 @@
+## <small>1.30.1 (2024-03-11)</small>
+
+- fix: Fixed login by qr code ([5ebd5f5](https://github.com/wppconnect-team/wppconnect/commit/5ebd5f5))
+
+## 1.30.0 (2024-03-10)
+
+- fix(deps): update dependency @wppconnect/wa-js to v3 (#2103) ([3f5a658](https://github.com/wppconnect-team/wppconnect/commit/3f5a658)), closes [#2103](https://github.com/wppconnect-team/wppconnect/issues/2103)
+
+## 1.29.0 (2024-01-25)
+
+- [FIX] version whatsapp web ([716cd97](https://github.com/wppconnect-team/wppconnect/commit/716cd97))
+
+## <small>1.28.4 (2023-12-25)</small>
+
+- fix: Remove unnecessary code for close instance (close #1835) ([43f2a9b](https://github.com/wppconnect-team/wppconnect/commit/43f2a9b)), closes [#1835](https://github.com/wppconnect-team/wppconnect/issues/1835)
+
+## <small>1.28.3 (2023-11-15)</small>
+
+- feat: Added client.getCommonGroups function ([194c898](https://github.com/wppconnect-team/wppconnect/commit/194c898))
+
+## <small>1.28.2 (2023-11-04)</small>
+
+- chore: Update release-it ([4869dc8](https://github.com/wppconnect-team/wppconnect/commit/4869dc8))
+
+## <small>1.28.1 (2023-11-01)</small>
+
+- fix : update version whatsappVersion 2.2347.x ([6fe090a](https://github.com/wppconnect-team/wppconnect/commit/6fe090a))
+
 # 1.28.0 (2023-08-16)
 
 ## 1.27.3 (2023-06-14)
