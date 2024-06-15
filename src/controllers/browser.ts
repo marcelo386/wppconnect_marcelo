@@ -116,7 +116,14 @@ export async function initWhatsapp(
     await setWhatsappVersion(page, version, log);
   }
 
-  setTimeout(() => {
+  log?.('verbose', `Loading WhatsApp WEB`);
+  await page.goto(puppeteerConfig.whatsappUrl, {
+    waitUntil: 'load',
+    timeout: 0,
+    referer: 'https://whatsapp.com/',
+  });
+  log?.('verbose', 'WhatsApp WEB loaded');
+  /*setTimeout(() => {
     log?.('verbose', `Loading WhatsApp WEB`);
 
     const timeout = 10 * 1000;
@@ -129,6 +136,7 @@ export async function initWhatsapp(
 
     log?.('verbose', `WhatsApp WEB loaded`);
   }, 1000);
+  */
 
   return page;
 }
@@ -209,44 +217,20 @@ export async function injectApi(
   if (injected) {
     return;
   }
-
-  // Wait for some loaded modules
-  await page
-    .waitForFunction(
-      () => ((window as any)?.webpackChunkwhatsapp_web_client?.length || 0) > 3
-    )
-    .catch(() => null);
-
-  await sleep(100);
-
   await page.addScriptTag({
     path: require.resolve('@wppconnect/wa-js'),
   });
 
-  await page
-    .evaluate(() => {
-      WPP.chat.defaultSendMessageOptions.createChat = true;
-      WPP.conn.setKeepAlive(true);
-    })
-    .catch(() => false);
-
+  await page.evaluate(() => {
+    WPP.chat.defaultSendMessageOptions.createChat = true;
+    WPP.conn.setKeepAlive(true);
+  });
   await page.addScriptTag({
     path: require.resolve(
       path.join(__dirname, '../../dist/lib/wapi', 'wapi.js')
     ),
   });
-
-  await onLoadingScreen(page, onLoadingScreenCallBack);
-  // Make sure WAPI is initialized
-  await page
-    .waitForFunction(() => {
-      return (
-        typeof window.WAPI !== 'undefined' &&
-        typeof window.Store !== 'undefined' &&
-        window.WPP.isReady
-      );
-    })
-    .catch(() => false);
+  onLoadingScreen(page, onLoadingScreenCallBack);
 }
 
 /**

@@ -1,3 +1,31 @@
+## 1.32.0 (2024-06-12)
+
+- fix: Improovment whatsappVersion to 2.3000.10139x ([d246c58](https://github.com/wppconnect-team/wppconnect/commit/d246c58))
+
+## 1.31.1 (2024-06-12)
+
+### Bug Fixes
+
+- Downgrade whatsappVersion to 2.2413.x ([22ca707](https://github.com/wppconnect-team/wppconnect/commit/22ca707c17a66441a4c19098d238899992a7c4bc))
+
+# 1.31.0 (2024-06-10)
+
+### Bug Fixes
+
+- **deps:** update dependency @wppconnect/wa-js to ^3.3.1 ([#2205](https://github.com/wppconnect-team/wppconnect/issues/2205)) ([89c3298](https://github.com/wppconnect-team/wppconnect/commit/89c3298209aed64e68fa28a9bd2102f1ae366d31))
+
+## 1.30.3 (2024-05-03)
+
+### Bug Fixes
+
+- **deps:** update dependency @wppconnect/wa-js to ^3.2.4 ([#2168](https://github.com/wppconnect-team/wppconnect/issues/2168)) ([df59aec](https://github.com/wppconnect-team/wppconnect/commit/df59aecc61415f6163dcd9e1ab79ebb0c9b8402f))
+
+## 1.30.2 (2024-04-25)
+
+### Bug Fixes
+
+- Upgrade whatsappVersion ([b8b1ec7](https://github.com/wppconnect-team/wppconnect/commit/b8b1ec75e5b2926e96fe83f21921f49824eea9cc))
+
 ## <small>1.30.1 (2024-03-11)</small>
 
 - fix: Fixed login by qr code ([5ebd5f5](https://github.com/wppconnect-team/wppconnect/commit/5ebd5f5))
