@@ -48,15 +48,26 @@ export class UILayer extends GroupLayer {
   public async openChatAt(chatId: string, messageId: string) {
     return evaluateAndReturn(
       this.page,
-      (chatId: string) => WPP.chat.openChatAt(chatId, messageId),
-      chatId
+      (chatId: string, messageId) => WPP.chat.openChatAt(chatId, messageId),
+      chatId,
+      messageId
     );
   }
+
   /**
-   * Return the current active chat
+   * Closes the currently opened chat (if any).
+   * The boolean result reflects if there was any chat that got closed.
    * @category UI
    */
-  public async getActiveChat() {
+  public async closeChat() {
+    return evaluateAndReturn(this.page, () => WPP.chat.closeChat());
+  }
+
+  /**
+   * Return the currently active chat (visually open)
+   * @category UI
+   */
+  public getActiveChat() {
     return evaluateAndReturn(this.page, () => WPP.chat.getActiveChat());
   }
 }

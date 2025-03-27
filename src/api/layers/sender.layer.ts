@@ -38,7 +38,7 @@ import {
   stickerSelect,
 } from '../helpers';
 import { filenameFromMimeType } from '../helpers/filename-from-mimetype';
-import { Message, SendFileResult, SendStickerResult } from '../model';
+import { Message, SendFileResult, SendStickerResult, Wid } from '../model';
 import { ChatState } from '../model/enum';
 import { ListenerLayer } from './listener.layer';
 import {
@@ -194,7 +194,11 @@ export class SenderLayer extends ListenerLayer {
     filename?: string,
     caption?: string,
     quotedMessageId?: string,
-    isViewOnce?: boolean
+    isViewOnce?: boolean,
+    options?: {
+      msgId?: string;
+      mentionedList?: string[];
+    }
   ) {
     let base64 = await downloadFileToBase64(filePath, [
       'image/gif',
@@ -227,7 +231,9 @@ export class SenderLayer extends ListenerLayer {
       filename,
       caption,
       quotedMessageId,
-      isViewOnce
+      isViewOnce,
+      options?.mentionedList,
+      options || {}
     );
   }
 
@@ -235,7 +241,7 @@ export class SenderLayer extends ListenerLayer {
    * Sends image message
    * @category Chat
    * @param to ID of the chat to send the image to
-   * @param base64 File path, HTTP link, or a base64-encoded data URI (with mime type)
+   * @param base64 A base64-encoded data URI (with mime type)
    * @param filename
    * @param caption
    * @param quotedMessageId Quoted message id
@@ -254,7 +260,10 @@ export class SenderLayer extends ListenerLayer {
     caption?: string,
     quotedMessageId?: string,
     isViewOnce?: boolean,
-    mentionedList?: any
+    mentionedList?: any,
+    options?: {
+      msgId?: string;
+    }
   ) {
     let mimeType = base64MimeType(base64);
 
@@ -288,10 +297,12 @@ export class SenderLayer extends ListenerLayer {
         quotedMessageId,
         isViewOnce,
         mentionedList,
+        options,
       }) => {
         const result = await WPP.chat.sendFileMessage(to, base64, {
           type: 'image',
           isViewOnce,
+          messageId: options?.msgId,
           filename,
           caption,
           quotedMsg: quotedMessageId,
@@ -314,6 +325,7 @@ export class SenderLayer extends ListenerLayer {
         quotedMessageId,
         isViewOnce,
         mentionedList,
+        options,
       }
     );
 
@@ -569,7 +581,10 @@ export class SenderLayer extends ListenerLayer {
    *
    * @example
    * ```javascript
-   * // Simple message
+   * // File message from a path
+   * client.sendFile('<number>@c.us', './someFile.txt');
+   * // Simple message from base64
+   *
    * client.sendFile('<number>@c.us', 'data:text/plain;base64,V1BQQ29ubmVjdA==');
    *
    * // With buttons
@@ -604,7 +619,7 @@ export class SenderLayer extends ListenerLayer {
    * @param options
    */
   public async sendFile(
-    to: string,
+    to: string | Wid,
     pathOrBase64: string,
     options?: FileMessageOptions
   );
